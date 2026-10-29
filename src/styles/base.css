@@ -1,0 +1,164 @@
+/* ==========================================================================
+   Tauros Barbería — tokens y estilos base
+   Ajusta los valores de :root para igualar el diseño de Figma.
+   ========================================================================== */
+:root {
+  /* Color */
+  --ink: #000000;          /* fondo principal */
+  --carbon: #121212;       /* superficies */
+  --graphite: #1f1f1f;     /* tarjetas elevadas */
+  --line: #2e2e2e;         /* bordes sutiles */
+  --steel: #8f8f8f;        /* texto secundario */
+  --bone: #ede9e2;         /* texto principal */
+  --gold: #c9a24d;         /* acento */
+  --gold-soft: #e1c47f;    /* hover */
+  --gold-deep: #9d7b33;    /* active */
+  --on-gold: #140f04;
+
+  --ok: #6fbf8e;
+  --busy: #d98a5b;
+  --off: #6b6b6b;
+  --danger: #e06c6c;
+
+  /* Tipografía */
+  --font-display: 'Bodoni Moda', 'Didot', 'Times New Roman', serif;
+  --font-body: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.5625rem;
+  --step-3: 1.953rem;
+  --step-4: 2.441rem;
+  --step-5: clamp(3rem, 9vw, 6.5rem);
+
+  /* Espaciado y forma */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 18px;
+  --max: 1180px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; color-scheme: dark; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.12;
+  margin: 0 0 var(--space-3);
+  letter-spacing: -0.01em;
+}
+h1 { font-size: var(--step-4); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-1); }
+p { margin: 0 0 var(--space-4); max-width: 68ch; }
+a { color: var(--gold); text-underline-offset: 3px; }
+a:hover { color: var(--gold-soft); }
+img { max-width: 100%; display: block; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--space-4); }
+@media (min-width: 720px) { .container { padding-inline: var(--space-6); } }
+
+.muted { color: var(--steel); }
+.small { font-size: var(--step--1); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 var(--space-5);
+  border: 1px solid var(--line); border-radius: 999px;
+  background: transparent; color: var(--bone);
+  font-weight: 600; font-size: 0.95rem; text-decoration: none; cursor: pointer;
+  transition: background-color .15s var(--ease), border-color .15s var(--ease), color .15s var(--ease), transform .1s;
+}
+.btn:hover { border-color: var(--gold); color: var(--gold-soft); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled, .btn[aria-disabled='true'] { opacity: .45; cursor: not-allowed; transform: none; }
+.btn--gold { background: var(--gold); border-color: var(--gold); color: var(--on-gold); }
+.btn--gold:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: var(--on-gold); }
+.btn--gold:active { background: var(--gold-deep); }
+.btn--danger { border-color: color-mix(in srgb, var(--danger) 60%, transparent); color: var(--danger); }
+.btn--danger:hover { background: color-mix(in srgb, var(--danger) 14%, transparent); color: var(--danger); border-color: var(--danger); }
+.btn--ghost { border-color: transparent; }
+.btn--sm { min-height: 36px; padding: 0 var(--space-4); font-size: var(--step--1); }
+.btn--icon { width: 40px; min-height: 40px; padding: 0; }
+
+/* ---------- Formularios ---------- */
+.field { display: grid; gap: var(--space-2); margin-bottom: var(--space-4); }
+.field label { font-size: var(--step--1); color: var(--steel); font-weight: 500; }
+.input, .select, .textarea {
+  width: 100%; min-height: 44px; padding: var(--space-2) var(--space-3);
+  background: var(--carbon); border: 1px solid var(--line); border-radius: var(--radius-s);
+  color: var(--bone); transition: border-color .15s;
+}
+.textarea { min-height: 96px; resize: vertical; }
+.input:hover, .select:hover, .textarea:hover { border-color: #444; }
+.input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--gold); }
+.input[aria-invalid='true'] { border-color: var(--danger); }
+.field-error { color: var(--danger); font-size: var(--step--1); margin: 0; }
+.check { display: inline-flex; align-items: center; gap: var(--space-2); cursor: pointer; }
+.check input { accent-color: var(--gold); width: 18px; height: 18px; }
+
+/* ---------- Superficies ---------- */
+.panel {
+  background: var(--carbon);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: var(--space-5);
+}
+
+.alert {
+  display: flex; gap: var(--space-3); align-items: flex-start;
+  padding: var(--space-3) var(--space-4); border-radius: var(--radius-s);
+  border: 1px solid var(--line); background: var(--carbon); margin-bottom: var(--space-4);
+}
+.alert--error { border-color: color-mix(in srgb, var(--danger) 55%, transparent); }
+.alert--warn  { border-color: color-mix(in srgb, var(--busy) 55%, transparent); }
+.alert--ok    { border-color: color-mix(in srgb, var(--ok) 55%, transparent); }
+.alert p { margin: 0; }
+
+/* ---------- Tablas (admin) ---------- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-m); }
+.table { width: 100%; border-collapse: collapse; font-size: 0.925rem; }
+.table th, .table td { padding: var(--space-3) var(--space-4); text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.table th { color: var(--steel); font-weight: 500; font-size: var(--step--1); background: var(--carbon); white-space: nowrap; }
+.table tr:last-child td { border-bottom: 0; }
+
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
