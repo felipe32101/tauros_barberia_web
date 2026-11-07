@@ -1,15 +1,23 @@
 <script setup>
-// Marca provisional de Tauros (cuernos + T). Reemplázala por el logo oficial de Figma:
-// basta con poner el SVG/PNG en /public y cambiar este componente.
+// Marca de Tauros: cachos de toro dorados (silueta, sin rostro).
 defineProps({ size: { type: Number, default: 36 }, withName: { type: Boolean, default: true } })
 </script>
 
 <template>
   <span class="brand">
     <svg :width="size" :height="size" viewBox="0 0 64 64" aria-hidden="true">
-      <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".55" />
-      <path d="M12 17c2.5 10 9 15 20 15s17.5-5 20-15" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
-      <path d="M22 31.5h20M32 31.5V51" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+      <defs>
+        <linearGradient id="brand-gold" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F6E3A9" />
+          <stop offset=".45" stop-color="#C9A24D" />
+          <stop offset="1" stop-color="#8A6A2A" />
+        </linearGradient>
+      </defs>
+      <rect width="64" height="64" rx="12" fill="#000" />
+      <g fill="url(#brand-gold)">
+        <path d="M33 40 C46 41, 55 34, 59.5 7 C56 25, 47 34, 33 31 Z" />
+        <path d="M31 40 C18 41, 9 34, 4.5 7 C8 25, 17 34, 31 31 Z" />
+      </g>
     </svg>
     <span v-if="withName" class="brand__name">Tauros<span class="brand__sub">Barbería</span></span>
   </span>

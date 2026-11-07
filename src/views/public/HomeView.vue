@@ -35,8 +35,11 @@ const { status, data, live } = useAvailability(day, (d) => api.availability(d, r
 
 <template>
   <section class="hero">
+    <img class="hero__bg" src="/img/hero-corte.jpg" alt="" aria-hidden="true" fetchpriority="high" />
+    <div class="hero__veil" aria-hidden="true"></div>
     <div class="container hero__grid">
       <div class="hero__copy">
+        <p class="hero__eyebrow">Barbería · Cortes clásicos y modernos</p>
         <h1 class="hero__mark">Tauros</h1>
         <p class="hero__lead">Cortes, barba y afeitado a navaja. Escoge tu servicio, tu silla y tu hora sin llamar ni hacer fila.</p>
         <div class="hero__actions">
@@ -76,6 +79,39 @@ const { status, data, live } = useAvailability(day, (d) => api.availability(d, r
     </div>
   </section>
 
+  <section id="galeria" class="section container">
+    <div class="section__head">
+      <h2>La barbería</h2>
+      <p class="muted">Un lugar para sentarse, relajarse y salir como nuevo.</p>
+    </div>
+    <div class="gallery">
+      <figure class="gallery__item gallery__item--wide">
+        <img src="/img/sillas.jpg" alt="Sillas de barbero clásicas en ladrillo" loading="lazy" width="1600" height="1067" />
+        <figcaption>Nuestras sillas</figcaption>
+      </figure>
+      <figure class="gallery__item">
+        <img src="/img/navaja.jpg" alt="Corte con navaja y máquina" loading="lazy" width="1600" height="1067" />
+        <figcaption>Detalle al detalle</figcaption>
+      </figure>
+      <figure class="gallery__item">
+        <img src="/img/barba.jpg" alt="Perfilado de barba con cepillo" loading="lazy" width="1200" height="1800" />
+        <figcaption>Barba y perfilado</figcaption>
+      </figure>
+      <figure class="gallery__item gallery__item--wide">
+        <img src="/img/interior.jpg" alt="Sillón de barbería en cuero" loading="lazy" width="1600" height="1067" />
+        <figcaption>Tu silla te espera</figcaption>
+      </figure>
+      <figure class="gallery__item">
+        <img src="/img/herramientas.jpg" alt="Máquinas y peines sobre madera" loading="lazy" width="1200" height="800" />
+        <figcaption>Herramientas</figcaption>
+      </figure>
+      <figure class="gallery__item">
+        <img src="/img/sala.jpg" alt="Interior de la barbería" loading="lazy" width="1600" height="1067" />
+        <figcaption>El ambiente</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section id="como-reservar" class="section container steps">
     <h2>Así reservas</h2>
     <ol class="steps__list">
@@ -88,11 +124,24 @@ const { status, data, live } = useAvailability(day, (d) => api.availability(d, r
 </template>
 
 <style scoped>
-.hero { border-bottom: 1px solid var(--line); background:
+.hero { position: relative; isolation: isolate; border-bottom: 1px solid var(--line); background:
   radial-gradient(900px 400px at 85% 0%, rgba(201, 162, 77, .09), transparent 60%), var(--ink); }
+.hero__bg {
+  position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%;
+  object-fit: cover; object-position: 70% 40%; opacity: .5;
+}
+.hero__veil {
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, #000 8%, rgba(0, 0, 0, .88) 42%, rgba(0, 0, 0, .35) 100%),
+              linear-gradient(0deg, #000 2%, transparent 45%);
+}
 .hero__grid { display: grid; gap: var(--space-7); padding-block: var(--space-8) var(--space-7); align-items: end; }
 @media (min-width: 960px) { .hero__grid { grid-template-columns: 1.25fr .9fr; } }
 
+.hero__eyebrow {
+  font-size: var(--step--1); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gold); font-weight: 600; margin-bottom: var(--space-3);
+}
 .hero__mark {
   font-size: var(--step-5); font-weight: 700; line-height: .9; letter-spacing: -0.03em; margin: 0 0 var(--space-5);
   color: var(--bone);
@@ -119,6 +168,32 @@ const { status, data, live } = useAvailability(day, (d) => api.availability(d, r
 .section { padding-top: var(--space-8); }
 .section__head { margin-bottom: var(--space-5); }
 .services { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+
+.gallery { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.gallery__item {
+  position: relative; margin: 0; overflow: hidden; border-radius: var(--radius-m);
+  border: 1px solid var(--line); background: var(--carbon); aspect-ratio: 4 / 3;
+}
+.gallery__item--wide { grid-column: span 2; aspect-ratio: 8 / 3; }
+@media (max-width: 640px) {
+  .gallery__item--wide { grid-column: span 1; aspect-ratio: 4 / 3; }
+}
+.gallery__item img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(.85) brightness(.82); transform: scale(1.01);
+  transition: transform .5s var(--ease), filter .5s var(--ease);
+}
+.gallery__item:hover img { transform: scale(1.06); filter: saturate(1) brightness(1); }
+.gallery__item figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: var(--space-4) var(--space-4) var(--space-3);
+  font-size: var(--step--1); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--bone);
+  background: linear-gradient(0deg, rgba(0, 0, 0, .85), transparent);
+}
+.gallery__item::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(201, 162, 77, .16);
+  border-radius: inherit;
+}
 
 .steps__list { margin: 0; padding-left: 1.4em; display: grid; gap: var(--space-3); max-width: 62ch; }
 .steps__list li::marker { color: var(--gold); font-family: var(--font-display); font-weight: 700; }
